@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Refund AI — Ops Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .header-title {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand {
+      font-size: 18px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .agent-badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 10px;
+      background: rgba(0, 210, 180, 0.15);
+      border: 1px solid rgba(0, 210, 180, 0.4);
+      color: #00d2b4;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 3px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+
+  <!-- ── Header ── -->
+  <header class="app-header">
+    <div class="header-left">
+      <div class="logo-mark">
+        <span class="logo-icon">⬡</span>
+      </div>
+      <div class="header-title">
+        <div class="title-row">
+          <span class="brand">RefundAI</span>
+          <span class="agent-badge">AGENT</span>
+        </div>
+
+        <span class="subtitle">
+          Human-in-the-loop refund management
+        </span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="status-pill">
+        <span class="status-dot"></span>
+        <span>Agent Online</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── 3-column layout ── -->
+  <main class="dashboard">
+
+    <!-- COL 1: Chat (50%) -->
+    <section class="panel chat-panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <span class="panel-icon">◈</span>
+          <span>AI Chat</span>
+        </div>
+        <div class="panel-badge">GPT-4o</div>
+      </div>
+
+      <div class="messages-area" id="messages">
+        <div class="message ai-message animate-in">
+          <div class="message-avatar ai-avatar">AI</div>
+          <div class="message-bubble ai-bubble">
+            <p>Hello! I'm your Refund AI Agent. Type <strong>refund</strong> to load pending requests.</p>
+            <span class="message-time">Just now</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="typing-indicator" id="typingIndicator" style="display:none;">
+        <div class="message-avatar ai-avatar">AI</div>
+        <div class="typing-bubble">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+
+      <div id="actions" class="actions-bar"></div>
+
+      <div class="input-area">
+        <div class="input-wrapper">
+          <input id="chatInput" type="text" placeholder="Message Refund AI…" autocomplete="off" />
+          <button class="send-btn" id="sendBtn" aria-label="Send">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+        </div>
+        <p class="input-hint">Press <kbd>Enter</kbd> to send</p>
+      </div>
+    </section>
+
+    <!-- COL 2: Pending Refunds (25%) -->
+    <section class="panel refund-panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <span class="panel-icon">◈</span>
+          <span>Pending</span>
+        </div>
+        <div class="refund-count" id="refundCount">No pending</div>
+      </div>
+
+      <div class="refund-list" id="pendingList">
+        <div class="empty-state" id="emptyState">
+          <div class="empty-icon">⬡</div>
+          <p>No pending requests.</p>
+          <p class="empty-sub">Type <strong>refund</strong> in chat.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- COL 3: History (25%) -->
+    <section class="panel history-panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <span class="panel-icon">◈</span>
+          <span>History</span>
+        </div>
+        <div class="refund-count" id="historyCount"></div>
+      </div>
+
+      <div class="refund-list" id="historyList">
+        <div class="empty-state" id="historyEmpty">
+          <div class="empty-icon">◎</div>
+          <p>No decisions yet.</p>
+          <p class="empty-sub">Approved &amp; rejected requests appear here.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
